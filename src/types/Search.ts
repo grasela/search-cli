@@ -20,6 +20,12 @@ export enum SearchTermsEnum {
   organizationTerms = 'Organization Field',
 }
 
+export type SearchResults = {
+  organizations: Array<Organization>;
+  tickets: Array<Ticket>;
+  users: Array<User>;
+};
+
 export type Data = {
   organizations: Array<Organization>;
   users: Array<User>;
@@ -37,7 +43,7 @@ export type MapData = {
 type ValueOf<T> = T[keyof T];
 
 export type SearchItem = User | Ticket | Organization;
-export type SearchItemKeys = keyof SearchItem;
+export type SearchItemKeys = keyof User | keyof Ticket | keyof Organization;
 export type SearchItemValues = ValueOf<SearchItem>;
 
 export type UserField = keyof User;

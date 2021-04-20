@@ -14,7 +14,7 @@ const map: LookupMap = {
   organizations: generateMapForSearchItem(organizations) as ItemMap<Organization>,
   tickets: generateMapForSearchItem(tickets) as ItemMap<Ticket>,
 };
-test('find the item correct', () => {
+test('finds the item correct', () => {
   const userId = 2;
   const field = '_id';
   const result: LookupResult = lookupSearch('users', field, userId, map);
@@ -24,7 +24,7 @@ test('find the item correct', () => {
   expect(user._id).toBe(userId);
 });
 
-test('find find multiple items which share the field and value', () => {
+test('finds multiple items which share the field and value', () => {
   const fieldValue = true;
   const field = 'verified';
   const numberOfUsers = users.filter((user) => user[field] === true).length;

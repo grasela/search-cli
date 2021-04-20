@@ -21,16 +21,17 @@ export function lookupSearch(
   map: LookupMap,
 ): LookupResult {
   const typeObject = map[type];
+  const error = { error: true };
   if (!typeObject) {
-    return { error: true, errorMessage: `Error: ${type} is not a valid search` };
+    return { ...error, errorMessage: `Error: ${type} is not a valid search` };
   }
   const fieldObject = typeObject[field];
   if (!fieldObject) {
-    return { error: true, errorMessage: `Error: ${field} doesn't exist in ${type}` };
+    return { ...error, errorMessage: `Error: ${field} doesn't exist in ${type}` };
   }
   const valueObject = fieldObject[value];
   if (!valueObject) {
-    return { error: true, errorMessage: `${value} in ${field} within ${type} not found` };
+    return { ...error, errorMessage: `${value} in ${field} within ${type} not found` };
   }
   return valueObject;
 }
