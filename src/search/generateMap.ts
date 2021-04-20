@@ -1,10 +1,10 @@
-import { SearchItem, SearchItemValues } from 'types/Map';
+import { SearchItem, SearchItemValues } from 'types/Search';
 
-export type Map<Item> = {
+export type ItemMap<Item> = {
   [Property in keyof Item]: { [K in SearchItemValues]: Array<Item> };
 };
 
-export function generateMapForSearchItem(data: Array<SearchItem>): Map<SearchItem> {
+export function generateMapForSearchItem(data: Array<SearchItem>): ItemMap<SearchItem> {
   return data.reduce((map, currentItem) => {
     const fields = Object.keys(currentItem);
 
@@ -18,5 +18,5 @@ export function generateMapForSearchItem(data: Array<SearchItem>): Map<SearchIte
       }
     });
     return map;
-  }, {} as Map<SearchItem>);
+  }, {} as ItemMap<SearchItem>);
 }
