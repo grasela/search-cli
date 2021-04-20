@@ -1,3 +1,7 @@
+import { Organization } from './Organization';
+import { Ticket } from './Ticket';
+import { User } from './User';
+
 export type SearchData = {
   searchTypeSelection?: SearchType;
   searchFieldSelection?: string;
@@ -19,3 +23,5 @@ export type Data = {
   users: Array<User>;
   tickets: Array<Ticket>;
 };
+
+export type SearchType = keyof Data;
