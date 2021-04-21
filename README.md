@@ -1,4 +1,4 @@
-# Data search CLI Application 
+# Search CLI Application 
 
 CLI Search Application which demonstrates a use of lookup method to find desired items. 
 
@@ -76,12 +76,12 @@ Application has been tested with the use of Jest test runner. You can run `yarn 
 ├── tsconfig.json                   # TypeScript configuration
 └── yarn.lock
 ```
+
 ### Search considerations
 
-- The fastest way to search for data is in fact to perform a lookup. In order to be able to do that there is a need of remapping existing data to a different structure that would represent a map of every field and their values being related to the actual searchable item (User, Ticket or Organization)
+- The problem of fast searching for data has been solved with a lookup. In order to be able to do that there is a need of remapping existing data to a different structure that would represent a map of every field and their values being related to the actual searchable item (User, Ticket or Organization)
 
 - This is possible only if we can store the map in memory. The user experience will be better since we can retrieve results faster, however the boot up time can be compromised by this solution depending on the original data set. 
-
 
 ### Assumptions
 
@@ -112,7 +112,6 @@ Application has been tested with the use of Jest test runner. You can run `yarn 
 4. Listing fields will output all possible search fields group by search type. 
     - basic listing which returns the user to `mainMenuHandler`
 
-     
 ### Trade offs
 
 The main trade off with mapping the data up front and storing it in the memory are potential issues with scalability when the data reaches particular size. 
@@ -121,7 +120,7 @@ This approach also works `only` with the exact matches of the user's input. Any 
 
 ### Final notes
 
-This submission assumes that the main goal is to spark a conversation about different ways of searching for data. Searching gets complex quite quick and this is just an example implementation of the lookup using selected tools. 
+This submission assumes that the main goal is to spark a conversation about different ways of searching through data. Searching gets complex quite quick and this is just an example implementation of the lookup using selected tools. 
 
 While the core map generation and search functionality are tested to cover some edges cases and general functionality, the CLI rendering methods are not tested as they would have to be in PRODUCTION. The focus has been put primarily on the search problem.
 
@@ -129,7 +128,7 @@ While the core map generation and search functionality are tested to cover some 
 
 ![Example Search](./assets/sample_cli.gif)
 
-![Menu Handler](./assets/mainMenuHandler.png)
+![Menu Handler](./assets/mainMenuHandler.png)∂
 
 ![Example Result](./assets/result.png)
 
