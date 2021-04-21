@@ -1,4 +1,4 @@
-import { SearchItem, SearchItemValues } from 'types/Search';
+import { LookupMap, SearchFields, SearchItem, SearchItemValues } from '../types';
 
 export type ItemMap<Item> = {
   //@ts-ignore
@@ -31,4 +31,12 @@ export function generateMapForSearchItem(data: Array<SearchItem>): ItemMap<Searc
     });
     return map;
   }, {} as ItemMap<SearchItem>);
+}
+
+export function getFieldsFromMap(map: LookupMap): SearchFields {
+  return {
+    userTerms: Object.keys(map.users),
+    organizationTerms: Object.keys(map.organizations),
+    ticketTerms: Object.keys(map.tickets),
+  };
 }

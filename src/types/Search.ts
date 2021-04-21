@@ -7,9 +7,9 @@ import { User } from './User';
 export type SearchData = {
   searchTypeSelection?: SearchType;
   searchFieldSelection?: string;
-  searchTerm?: string;
+  searchFieldValue?: string;
 };
-export type SearchTerms = {
+export type SearchFields = {
   userTerms: string[];
   ticketTerms: string[];
   organizationTerms: string[];
@@ -17,7 +17,7 @@ export type SearchTerms = {
 export enum SearchTermsEnum {
   userTerms = 'Users fields',
   ticketTerms = 'Ticket fields',
-  organizationTerms = 'Organization Field',
+  organizationTerms = 'Organization Fields',
 }
 
 export type SearchResults = {
