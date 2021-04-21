@@ -23,15 +23,15 @@ export function lookupSearch(
   const typeObject = map[type];
   const error = { error: true };
   if (!typeObject) {
-    return { ...error, errorMessage: `Error: ${type} is not a valid search` };
+    return { ...error, errorMessage: `❌ Error: ${type} is not a valid search` };
   }
   const fieldObject = typeObject[field];
   if (!fieldObject) {
-    return { ...error, errorMessage: `Error: ${field} doesn't exist in ${type}` };
+    return { ...error, errorMessage: `❌ Error: ${type} doesn't have property of ${field}` };
   }
   const valueObject = fieldObject[value];
   if (!valueObject) {
-    return { ...error, errorMessage: `${value} in ${field} within ${type} not found` };
+    return { ...error, errorMessage: `❌  ${field} of ${value} in ${type} NOT FOUND` };
   }
   return valueObject;
 }

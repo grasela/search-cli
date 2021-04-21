@@ -5,9 +5,9 @@ import { Ticket } from './Ticket';
 import { User } from './User';
 
 export type SearchData = {
-  searchTypeSelection?: SearchType;
-  searchFieldSelection?: string;
-  searchFieldValue?: string;
+  searchTypeSelection: SearchType;
+  searchFieldSelection: string;
+  searchFieldValue: string;
 };
 export type SearchFields = {
   userTerms: string[];

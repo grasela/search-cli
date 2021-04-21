@@ -15,7 +15,7 @@ export interface User {
   phone: string;
   signature: string;
   organization_id?: number;
-  tags: string[];
+  tags: string[] | string;
   suspended: boolean;
   role: string;
 }

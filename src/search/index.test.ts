@@ -110,3 +110,13 @@ test('returns correct results for values nested in arrays in organizations', () 
     expect(organization[field].includes(fieldValue)).toBeTruthy();
   });
 });
+test('return correct item for empty search values', () => {
+  const type = 'organizations';
+  const field = 'details';
+  const fieldValue = '';
+  const result = search(type, field, fieldValue, map) as SearchResults;
+  expect(result).toBeTruthy();
+  result.organizations.forEach((organization) => {
+    expect(organization[field].includes(fieldValue)).toBeTruthy();
+  });
+});
