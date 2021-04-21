@@ -24,7 +24,7 @@ export function search(
       const userOrgIds = getOrgIds(users, type);
       searchResults.users = primaryResult as User[];
 
-      searchResults.organizations = lookup('users', userOrgIds, map) as Organization[];
+      searchResults.organizations = lookup('organizations', userOrgIds, map) as Organization[];
       searchResults.tickets = lookup('tickets', userOrgIds, map) as Ticket[];
       break;
 

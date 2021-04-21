@@ -90,12 +90,23 @@ test('returns correct results for organizations for a timestamp search', () => {
   expect(hasDuplicates(result.tickets)).toBeFalsy();
   expect(hasDuplicates(result.organizations)).toBeFalsy();
 });
-test('returns correct results for values nested in arrays', () => {
+test('returns correct results for values nested in arrays users', () => {
   const type = 'users';
   const field = 'tags';
-  const fieldValue = 'Tennessee';
+  const fieldValue = 'Wescosville';
   const result = search(type, field, fieldValue, map) as SearchResults;
   expect(result).toBeTruthy();
-  //TODO: fix this test
-  //   console.log(map['users']['tags']);
+  result.users.forEach((user) => {
+    expect(user[field].includes(fieldValue)).toBeTruthy();
+  });
+});
+test('returns correct results for values nested in arrays in organizations', () => {
+  const type = 'organizations';
+  const field = 'domain_names';
+  const fieldValue = 'bluegrain.com';
+  const result = search(type, field, fieldValue, map) as SearchResults;
+  expect(result).toBeTruthy();
+  result.organizations.forEach((organization) => {
+    expect(organization[field].includes(fieldValue)).toBeTruthy();
+  });
 });

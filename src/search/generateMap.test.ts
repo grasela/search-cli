@@ -1,6 +1,6 @@
 import { User } from 'types/User.js';
 
-import { Map, generateMapForSearchItem } from './generateMap';
+import { ItemMap, generateMapForSearchItem, generateMapFromArray } from './generateMap';
 
 const user = {
   _id: 1,
@@ -22,6 +22,7 @@ const user = {
   tags: ['Springville', 'Sutton', 'Hartsville/Hartley', 'Diaperville'],
   suspended: true,
   role: 'admin',
+  mock: ['one', 'two', 'three'],
 };
 const secondUser = {
   _id: 2,
@@ -44,7 +45,7 @@ const secondUser = {
   suspended: false,
   role: 'admin',
 };
-const map = generateMapForSearchItem([user, secondUser] as Array<User>) as Map<User>;
+const map = generateMapForSearchItem([user, secondUser] as Array<User>) as ItemMap<User>;
 const userKeys = Object.keys(user);
 const mapKeys = Object.keys(map);
 
@@ -54,23 +55,29 @@ test('map should include keys from both users', () => {
   expect(userKeys).toStrictEqual(mapKeys);
 });
 
-test('every key value path on map resolves to user', () => {
+test('every non array key value path on map resolves to user', () => {
   userKeys.forEach((key) => expect(map[key]).toBeTruthy());
-  userKeys.forEach((key) => expect(map[key][user[key]][0]).toBe(user));
+  const filteredKeys = userKeys.filter((key) => !Array.isArray(user[key]));
+  filteredKeys.forEach((key) => expect(map[key][user[key]][0]).toBe(user));
+});
+test('every element in an array behind a key resolves to user', () => {
+  userKeys.forEach((key) => expect(map[key]).toBeTruthy());
+  const filteredKeys = userKeys.filter((key) => Array.isArray(user[key]));
+  filteredKeys.forEach((key) => {
+    user[key].forEach((item: string | number) => {
+      expect(map[key][item][0]).toBe(user);
+    });
+  });
 });
 
 test('boolean values are used in keys correctly', () => {
-  expect(map.shared['false'][0]).toBe(user);
+  expect(map.shared['false'][0]).toBe;
   expect(map.suspended['true'][0]).toBe(user);
   expect(map.active['true'][0]).toBe(user);
 
   expect(map.shared['false'][1]).toBe(secondUser);
   expect(map.suspended['false'][0]).toBe(secondUser);
   expect(map.active['true'][1]).toBe(secondUser);
-});
-
-test('array values are resolved correctly', () => {
-  expect(map.tags['Springville,Sutton,Hartsville/Hartley,Diaperville'][0]).toBe(user);
 });
 
 test('the same values generate array which includes related users', () => {
@@ -83,4 +90,24 @@ test('the same values generate array which includes related users', () => {
   expect(map.active['true'][1]).toBe(secondUser);
   expect(map.locale?.['en-AU'][1]).toBe(secondUser);
   expect(map.timezone?.['Sri Lanka'][1]).toBe(secondUser);
+});
+
+test('array is mapped correctly', () => {
+  const tags = user.tags;
+  const arrayMap = generateMapFromArray(tags, user);
+  const keys = Object.keys(arrayMap);
+  expect(keys).toHaveLength(tags.length);
+  keys.forEach((key) => {
+    expect(arrayMap[key][0]).toBe(user);
+  });
+});
+test('array is mapped without duplicates', () => {
+  const tags = ['Springville', 'Sutton', 'Hartsville/Hartley', 'Diaperville', 'Diaperville'];
+  const arrayMap = generateMapFromArray(tags, user);
+  const keys = Object.keys(arrayMap);
+  expect(keys.some((key, idx) => keys.indexOf(key) != idx)).toBeFalsy();
+  expect(keys).not.toHaveLength(tags.length);
+  keys.forEach((key) => {
+    expect(map[key][0]).toBe(user);
+  });
 });
