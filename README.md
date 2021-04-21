@@ -43,6 +43,10 @@ Application has been tested with the use of Jest test runner. You can run `yarn 
 ## Structure
 
 ```
+├── assets                          # README assets
+│   ├── mainMenuHandler.png
+│   ├── result.png
+│   └── sample_cli.gif
 ├── data                            # data sets for organizations tickets and users
 │   ├── organizations.json
 │   ├── tickets.json
